@@ -11,7 +11,7 @@ const style = {
   },
 }
 export default ({ 
-  exercises, category, onSelect, editMode, muscles, exercise,
+  exercises, category, onSelect, editMode, muscles,
   exercise: { 
     id,
     title = 'Welcome!',
@@ -69,8 +69,7 @@ export default ({
         {editMode 
           ? <Form 
               muscles={muscles}
-              onSubmit={onEdit} 
-              exercise={exercise}
+            onSubmit={onEdit} 
             /> 
           : <Fragment>
               <Typography

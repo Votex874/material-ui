@@ -60,15 +60,6 @@ class App extends Component {
     }))
   }
 
-  handleExerciseEdit = exercise => {
-    this.setState(({ exercises }) => ({
-      exercises: [
-        ...exercises.filter(ex => ex.id !== exercise.id),
-        exercise
-      ]
-    }))
-  }
-
   render() {
     const exercises = this.getExercisesByMuscles(),
     { category, exercise, editMode } = this.state
@@ -87,7 +78,6 @@ class App extends Component {
           onSelect={this.handleExerciseSelected}
           onDelete={this.handleExerciseDelete}
           onSelectEdit={this.handleExerciseSelectEdit}
-          onEdit={this.handleExerciseEdit}
         />
         <Footer 
           category={category}

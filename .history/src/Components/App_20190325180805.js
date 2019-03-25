@@ -6,14 +6,18 @@ import { muscles, exercises } from '../store'
 class App extends Component {
   state = {
     exercises,
-    exercise: {}
+    exercise: {},
+    editMode: false
   }
 
   getExercisesByMuscles = () => {
+
     const initialExercises = muscles.reduce((exercises, category) => ({
       ...exercises,
       [category]: []
     }), {})
+
+    console.log(initialExercises, muscles)
 
     return Object.entries(
       this.state.exercises.reduce((exercises, exercise) => {
@@ -60,18 +64,9 @@ class App extends Component {
     }))
   }
 
-  handleExerciseEdit = exercise => {
-    this.setState(({ exercises }) => ({
-      exercises: [
-        ...exercises.filter(ex => ex.id !== exercise.id),
-        exercise
-      ]
-    }))
-  }
-
   render() {
     const exercises = this.getExercisesByMuscles(),
-    { category, exercise, editMode } = this.state
+    { category, exercise } = this.state
     return (
       <Fragment>
         <Header  
@@ -82,12 +77,9 @@ class App extends Component {
           exercise={exercise}
           category={category}
           exercises={exercises} 
-          editMode={editMode}
-          muscles={muscles}
           onSelect={this.handleExerciseSelected}
           onDelete={this.handleExerciseDelete}
           onSelectEdit={this.handleExerciseSelectEdit}
-          onEdit={this.handleExerciseEdit}
         />
         <Footer 
           category={category}

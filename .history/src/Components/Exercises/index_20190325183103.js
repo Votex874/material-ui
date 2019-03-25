@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Grid, Paper, Typography, ListItem, ListItemText, List, ListItemSecondaryAction, IconButton } from '@material-ui/core'
 import { Delete, Edit } from '@material-ui/icons'
-import Form from './Form'
+import Form from '../Exercises/Form'
 const style = {
   Paper: {
     padding: 20,
@@ -11,14 +11,13 @@ const style = {
   },
 }
 export default ({ 
-  exercises, category, onSelect, editMode, muscles, exercise,
+  exercises, category, onSelect, editMode, muscles,
   exercise: { 
     id,
     title = 'Welcome!',
     description = 'Please select an exercise from the list on the left' },
     onDelete,
-    onSelectEdit,
-    onEdit,
+    onSelectEdit
   }) =>
   <Grid container>
     <Grid item sm>
@@ -69,8 +68,7 @@ export default ({
         {editMode 
           ? <Form 
               muscles={muscles}
-              onSubmit={onEdit} 
-              exercise={exercise}
+            onSubmit={onEdit} 
             /> 
           : <Fragment>
               <Typography

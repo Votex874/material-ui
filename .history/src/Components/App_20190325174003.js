@@ -10,19 +10,14 @@ class App extends Component {
   }
 
   getExercisesByMuscles = () => {
-    const initialExercises = muscles.reduce((exercises, category) => ({
-      ...exercises,
-      [category]: []
-    }), {})
-
     return Object.entries(
       this.state.exercises.reduce((exercises, exercise) => {
       const { muscles } = exercise
       
-      exercises[muscles] = [...exercises[muscles], exercise] 
+      exercises[muscles] = exercises[muscles] ? [...exercises[muscles], exercise] : [exercise]
 
-      return exercises    
-      }, initialExercises)
+      return exercises
+    }, {})
     )
   }
 
@@ -39,7 +34,7 @@ class App extends Component {
   }
 
   handleExerciseCreate = exercise => {
-    this.setState(({ exercises }) => ({
+    this.setState(({ exercise }) => ({
       exercises: [
         ...exercises,
         exercise
@@ -47,31 +42,9 @@ class App extends Component {
     }))
   }
 
-  handleExerciseDelete = id => {
-    this.setState(({ exercises }) => ({
-      exercises: exercises.filter(ex => ex.id !== id)
-    }))
-  }
-
-  handleExerciseSelectEdit = id => {
-    this.setState(({ exercises }) => ({
-      exercise: exercises.find(ex => ex.id === id),
-      editMode: true
-    }))
-  }
-
-  handleExerciseEdit = exercise => {
-    this.setState(({ exercises }) => ({
-      exercises: [
-        ...exercises.filter(ex => ex.id !== exercise.id),
-        exercise
-      ]
-    }))
-  }
-
   render() {
     const exercises = this.getExercisesByMuscles(),
-    { category, exercise, editMode } = this.state
+    { category, exercise } = this.state
     return (
       <Fragment>
         <Header  
@@ -79,15 +52,10 @@ class App extends Component {
           onExerciseCreate={this.handleExerciseCreate}
         />
         <Excersises 
-          exercise={exercise}
+        exercise={exercise}
           category={category}
           exercises={exercises} 
-          editMode={editMode}
-          muscles={muscles}
           onSelect={this.handleExerciseSelected}
-          onDelete={this.handleExerciseDelete}
-          onSelectEdit={this.handleExerciseSelectEdit}
-          onEdit={this.handleExerciseEdit}
         />
         <Footer 
           category={category}
